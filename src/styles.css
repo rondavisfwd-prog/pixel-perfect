@@ -1,0 +1,249 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * THE PINK DIGITAL — design system.
+ * Warm white / near black / electric pink. Editorial, typographic, restrained.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-display);
+  --font-display: var(--font-display);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-hairline: var(--border);
+  --color-hairline-invert: var(--border-invert);
+}
+
+:root {
+  --radius: 0.5rem;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --background: oklch(0.98 0.004 85);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(0.951 0.003 85);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(0.98 0.004 85);
+  --popover-foreground: oklch(0.145 0 0);
+
+  --primary: oklch(0.652 0.256 349.5);
+  --primary-foreground: oklch(0.145 0 0);
+
+  --secondary: oklch(0.951 0.003 85);
+  --secondary-foreground: oklch(0.145 0 0);
+
+  --muted: oklch(0.951 0.003 85);
+  --muted-foreground: oklch(0.52 0 0);
+
+  --accent: oklch(0.652 0.256 349.5);
+  --accent-foreground: oklch(0.145 0 0);
+
+  --ink: oklch(0.145 0 0);
+  --ink-foreground: oklch(0.98 0.004 85);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0.004 85);
+
+  --border: oklch(0.145 0 0 / 10%);
+  --border-invert: oklch(1 0 0 / 16%);
+  --input: oklch(0.145 0 0 / 16%);
+  --ring: oklch(0.652 0.256 349.5);
+
+  --step-eyebrow: 0.6875rem;
+  --shadow-lift: 0 18px 50px -30px oklch(0.145 0 0 / 35%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-display);
+    font-synthesis-weight: none;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ---------- Typography utilities ---------- */
+
+@utility shell {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 88rem;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 4rem;
+  }
+}
+
+@utility eyebrow {
+  font-size: var(--step-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@utility display-hero {
+  font-size: clamp(2.75rem, 10.5vw, 8.5rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+@utility display-xl {
+  font-size: clamp(2.25rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+}
+
+@utility display-lg {
+  font-size: clamp(1.875rem, 4vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+@utility display-md {
+  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+@utility lead {
+  font-size: clamp(1.0625rem, 1.35vw, 1.375rem);
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+@utility section-y {
+  padding-block: clamp(4.5rem, 10vw, 9.5rem);
+}
+
+@utility hairline-t {
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- Motion ---------- */
+
+@utility reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility float-slow {
+  animation: float-slow 14s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0) scale(1.02);
+  }
+}
+
+/* Animated underline for text links */
+@utility link-line {
+  position: relative;
+  display: inline-block;
+}
+@utility link-line-inner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.15em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}

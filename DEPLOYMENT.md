@@ -6,7 +6,7 @@ This application is built with TanStack Start, React 19, and Nitro. Follow the g
 
 ## 1. Deploy on Vercel (Recommended — Automatic 1-Click)
 
-Vercel deployment is pre-configured with `vercel.json` and the Nitro Vercel preset.
+Vercel deployment is pre-configured with `vercel.json` and the Nitro Vercel preset. Chunk filenames are sanitized with hashes (avoiding special characters like `+` which cause `ERR_MODULE_NOT_FOUND` in AWS Lambda / Vercel Serverless Functions).
 
 ### Steps:
 1. Push your code to your GitHub repository:

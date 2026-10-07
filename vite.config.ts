@@ -7,7 +7,8 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // Read explicit deployment preset if provided (e.g. for Vercel or Namecheap)
-const nitroPreset = process.env.NITRO_PRESET;
+const nitroPreset =
+  process.env.NITRO_PRESET || (process.env.VERCEL ? "vercel" : undefined);
 
 export default defineConfig({
   tanstackStart: {
@@ -15,7 +16,23 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  ...(nitroPreset ? { nitro: { preset: nitroPreset } } : {}),
+  ...(nitroPreset
+    ? {
+        nitro: {
+          preset: nitroPreset,
+          rollupConfig: {
+            output: {
+              chunkFileNames: "_chunks/[name]-[hash].mjs",
+            },
+          },
+          rolldownConfig: {
+            output: {
+              chunkFileNames: "_chunks/[name]-[hash].mjs",
+            },
+          },
+        },
+      }
+    : {}),
   vite: {
     server: {
       host: "0.0.0.0",

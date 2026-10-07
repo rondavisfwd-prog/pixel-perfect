@@ -1,0 +1,9 @@
+{
+  "name": "The Pink Digital",
+  "description": "Digital agency for ambitious brands — Strategy, Brand, Web, Social, Growth, and AI Automation.",
+  "requestFrame": "default",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

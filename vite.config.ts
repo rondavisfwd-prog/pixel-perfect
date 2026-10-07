@@ -6,9 +6,10 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Read explicit deployment preset if provided (e.g. for Vercel or Namecheap)
+// Detect deployment target: Vercel environment or explicit NITRO_PRESET
+const isVercel = Boolean(process.env.VERCEL);
 const nitroPreset =
-  process.env.NITRO_PRESET || (process.env.VERCEL ? "vercel" : undefined);
+  process.env.NITRO_PRESET || (isVercel ? "vercel" : undefined);
 
 export default defineConfig({
   tanstackStart: {
@@ -16,23 +17,21 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  ...(nitroPreset
-    ? {
-        nitro: {
-          preset: nitroPreset,
-          rollupConfig: {
-            output: {
-              chunkFileNames: "_chunks/[name]-[hash].mjs",
-            },
-          },
-          rolldownConfig: {
-            output: {
-              chunkFileNames: "_chunks/[name]-[hash].mjs",
-            },
-          },
-        },
-      }
-    : {}),
+  nitro: {
+    ...(nitroPreset ? { preset: nitroPreset } : {}),
+    // Sanitize chunk names: prevents '+', '[', ']' characters that cause
+    // ERR_MODULE_NOT_FOUND when deployed to AWS Lambda / Vercel Serverless
+    rollupConfig: {
+      output: {
+        chunkFileNames: "_chunks/[name]-[hash].mjs",
+      },
+    },
+    rolldownConfig: {
+      output: {
+        chunkFileNames: "_chunks/[name]-[hash].mjs",
+      },
+    },
+  },
   vite: {
     server: {
       host: "0.0.0.0",
